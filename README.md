@@ -40,7 +40,7 @@
     ./vendor/bin/sail artisan key:generate
     ```
 
-5.**Start the application: Run the following command to start the Laravel Sail containers:**
+5. **Start the application: Run the following command to start the Laravel Sail containers:**
 
     ```
     ./vendor/bin/sail up
