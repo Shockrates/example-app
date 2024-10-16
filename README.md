@@ -78,26 +78,26 @@
 ```
 {
     {
-  "message": "Product Found.",
-  "data": {
-    "id": "9",
-    "name": "Lipitor",
-    "category": "injection",
-    "batch_number": 412453528,
-    "research_status": "Completed",
-    "manufacturing_date": "2026-09-19T00:00:00.000000Z",
-    "expiration_date": "2027-05-06T00:00:00.000000Z",
-    "ingredients": [
-      {
-        "name": "Silicon Dioxide",
-        "quantity": 5
-      },
-      {
-        "name": "Croscarmellose Sodium",
-        "quantity": 5
+      "message": "Product Found.",
+      "data": {
+        "id": "9",
+        "name": "Lipitor",
+        "category": "injection",
+        "batch_number": 412453528,
+        "research_status": "Completed",
+        "manufacturing_date": "2026-09-19T00:00:00.000000Z",
+        "expiration_date": "2027-05-06T00:00:00.000000Z",
+        "ingredients": [
+          {
+            "name": "Silicon Dioxide",
+            "quantity": 5
+          },
+          {
+            "name": "Croscarmellose Sodium",
+            "quantity": 5
+          }
+        ]
       }
-    ]
-  }
-}
+    }
 }
 ```
