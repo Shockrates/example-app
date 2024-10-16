@@ -28,25 +28,23 @@
     laravelsail/php82-composer:latest \
     composer install
    ```
-3. Create a copy of the .env file:
-
+3. **Create a copy of the .env file:**
    ```
    cp .env.example .env
    ```
-
    Update the database credentials
 
-4. Generate an application key:
+4. **Generate an application key:**
+    
+    ```
+    ./vendor/bin/sail artisan key:generate
+    ```
 
-```
-./vendor/bin/sail artisan key:generate
-```
+5.**Start the application: Run the following command to start the Laravel Sail containers:**
 
-5.Start the application: Run the following command to start the Laravel Sail containers:
-
-```
-./vendor/bin/sail up
-```
+    ```
+    ./vendor/bin/sail up
+    ```
 
 
     
