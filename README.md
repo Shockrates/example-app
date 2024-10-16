@@ -46,7 +46,7 @@
     ./vendor/bin/sail up
     ```
 
-##Usage
+## Usage
 
 **Endpoints**
 
