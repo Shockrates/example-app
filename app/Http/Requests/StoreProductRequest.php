@@ -25,7 +25,7 @@ class StoreProductRequest extends FormRequest
         
         return [
             'name' => 'required|string|max:255|unique:products,name'. ($this->product ? ",".$this->product->id : ''),
-            'category' => 'nullable|string',
+            'category' => 'required|nullable|string',
             'batch_number' => 'required|numeric|unique:products,batch_number'.($this->product ? ",".$this->product->id : ''),
             'research_status_id' => 'nullable|exists:research_statuses,id',
             'manufacturing_date' => 'required|date|before_or_equal:today', // Ensure a valid date in the past or today
