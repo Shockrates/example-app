@@ -36,7 +36,7 @@
 
    Update the database credentials
 
-4.Generate an application key:
+4. Generate an application key:
 
 ```
 ./vendor/bin/sail artisan key:generate
