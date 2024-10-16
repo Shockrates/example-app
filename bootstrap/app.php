@@ -17,11 +17,15 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        
+        $exceptions->shouldRenderJsonWhen(function (Request $request, Throwable $exception) {
+            return $request->is('api/*');
+        });
+        
         $exceptions->render(function (NotFoundHttpException $e, Request $request) {
             if ($request->is('api/*')) {
                 return response()->json([
-                    'message' => 'Record not found.'
+                    'message' => $e->getMessage(),
                 ], 404);
             }
         });

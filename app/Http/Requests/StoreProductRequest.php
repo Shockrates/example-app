@@ -32,7 +32,6 @@ class StoreProductRequest extends FormRequest
             'expiration_date' => 'required|date|after:manufacturing_date', // Ensure a valid date in the past or today
             'ingredients' => 'present|nullable|array',  // Ensure ingredients is an array
             'ingredients.*.id' => 'required|exists:ingredients,id|distinct',  // Validate each ingredient exists
-            //'ingredients.*.id' => 'distinct',  // Validate each ingredient exists
             'ingredients.*.quantity' => 'required|integer|min:1',  // Ensure quantity is an integer greater than 0
         
         ];

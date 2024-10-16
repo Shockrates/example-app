@@ -11,42 +11,30 @@ use App\Http\Requests\StoreProductRequest;
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the products.
      */
     public function index()
     {
-
-        // Return a JSON response 
-           
+        // Return a JSON response   
         return response()->json([
             'message' => 'Products retrieved successfully.',
             'data' => ProductResource::collection(
                     Product::all()
                 ),
-        ], Response::HTTP_CREATED);
-
-       
+        ], 200);
+  
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created product in storage.
      */
     public function store(StoreProductRequest $request)
     {
         try {
-                // Create the Product with the validated data, handle nullable status_id
-            $product = Product::create([
-                'name' => $request->name,
-                'category' => $request->category,
-                'batch_number' => $request->batch_number,
-                'research_status_id' => $request->research_status_id, // This can be null
-                'manufacturing_date' => $request->manufacturing_date, 
-                'expiration_date' => $request->expiration_date,
-                
-            ]);
+            // Create the Product with the validated data, 
+            $product = Product::create($request->validated());
 
-
-            // Attach ingredients to the product with quantities
+            // Attach ingredients to the product with quantities. Required to update the products_ingredients pivot table
             foreach ($request->ingredients as $ingredient) {
                 $product->ingredients()->attach($ingredient['id'], ['quantity' => $ingredient['quantity']]);
             }
@@ -55,13 +43,11 @@ class ProductController extends Controller
             return response()->json([
                 'message' => 'Product created successfully.',
                 'data' => new ProductResource($product),
-            ], Response::HTTP_CREATED);
+            ], 201);
          
         } catch (\Throwable $th) {
        
-        }
-        
-        
+        } 
     }
 
     /**
@@ -74,12 +60,10 @@ class ProductController extends Controller
             return response()->json([
                 'message' => 'Product Found.',
                 'data' => new ProductResource($product),
-            ], Response::HTTP_OK);
+            ], 200);
         } catch (\Throwable $th) {
        
-        }
-        
-       
+        }   
     }
 
     /**
@@ -87,31 +71,35 @@ class ProductController extends Controller
      */
     public function update(StoreProductRequest $request, Product $product)
     {
-        // Update the product with the validated data
-        $product->update($request->validated());
+        try {
+            // Update the product with the validated data
+            $product->update($request->validated());
 
-        // Prepare an array of ingredients with quantities for sync
-        $ingredientsData = [];
-        if ($request->has('ingredients')) {
-
-            foreach ($request->ingredients as $ingredient) {
-                // Add ingredient_id as the key and quantity as the pivot data
-                $ingredientsData[$ingredient['id']] = ['quantity' => $ingredient['quantity']];
+            // Prepare an array of ingredients with quantities for sync
+            $ingredientsData = [];
+            if ($request->has('ingredients')) {
+                foreach ($request->ingredients as $ingredient) {
+                    // Add ingredient_id as the key and quantity as the pivot data
+                    $ingredientsData[$ingredient['id']] = ['quantity' => $ingredient['quantity']];
+                }
+                // Sync the ingredients with the product, updating the quantities
+                // Existing relationships will be updated, new ones will be added, old ones removed
+                $product->ingredients()->sync($ingredientsData);
             }
 
-            // Sync the ingredients with the product, updating the quantities
-            // Existing relationships will be updated, new ones will be added, old ones removed
-            $product->ingredients()->sync($ingredientsData);
+            // Refresh the product to get the updated relationships
+            $product->refresh();
+
+            // Return a success response
+            return response()->json([
+                'message' => 'Product updated successfully.',
+                'data' => new ProductResource($product),
+            ], 200);
+
+        } catch (\Throwable $th) {
+            //throw $th;
         }
-
-        // Refresh the product to get the updated relationships
-        $product->refresh();
-
-        // Return a success response
-        return response()->json([
-            'message' => 'Product updated successfully.',
-            'data' => new ProductResource($product),
-        ], Response::HTTP_OK);
+        
     }
 
     /**
