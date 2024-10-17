@@ -42,7 +42,7 @@
 5. **Run Migrations and Seeders**
 
     ```
-    php artisan migrate:refresh --seed
+    ./vendor/bin/sail artisan migrate:refresh --seed
     ```
     
 6. **Start the application: Run the following command to start the Laravel Sail containers:**
@@ -58,7 +58,7 @@
     docker-compose down --volumes
     ```
     ```
-    sail up --build
+    ./vendor/bin/sail up --build
     ```
 
 ## Usage
