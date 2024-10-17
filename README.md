@@ -50,16 +50,16 @@
     ```
     ./vendor/bin/sail up
     ```
-*. **Error Handling**
+7. **Error Handling**
 
-If there is an issue with the mysql-1 container starting, run the following commands 
-
-```
-docker-compose down --volumes
-```
-```
-sail up --build
-```
+    If there is an issue with the mysql-1 container starting, run the following commands 
+    
+    ```
+    docker-compose down --volumes
+    ```
+    ```
+    sail up --build
+    ```
 
 ## Usage
 
