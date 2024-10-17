@@ -39,12 +39,27 @@
     ```
     ./vendor/bin/sail artisan key:generate
     ```
+5. **Run Migrations and Seeders**
 
-5. **Start the application: Run the following command to start the Laravel Sail containers:**
+    ```
+    php artisan migrate:refresh --seed
+    ```
+    
+6. **Start the application: Run the following command to start the Laravel Sail containers:**
 
     ```
     ./vendor/bin/sail up
     ```
+**Error Handling**
+
+If there is an issue with the mysql-1 container starting, run the following commands 
+
+```
+docker-compose down --volumes
+```
+```
+sail up --build
+```
 
 ## Usage
 
