@@ -50,7 +50,7 @@
     ```
     ./vendor/bin/sail up
     ```
-**Error Handling**
+*. **Error Handling**
 
 If there is an issue with the mysql-1 container starting, run the following commands 
 
